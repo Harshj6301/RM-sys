@@ -57,7 +57,7 @@ def main():
       st.write("Stop loss in Percent", slp)
 
     with col2:
-      st.write(f"Position Size in Percent: {psp}\nPostion size in Capital: {psc}\nPosition size in Quantity: {psq}"
+      st.write(f"Position Size in Percent: {psp}\nPostion size in Capital: {psc}\nPosition size in Quantity: {psq}")
 
 if __name__ == "__main__":
     main()
