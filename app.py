@@ -14,8 +14,8 @@ def position_sizing(risk_per_trade, stop_loss_percent):
 def Stop_loss_percent(entry, sl):
   try:
     sl_percent = ((entry-sl)/entry) * 100
-  except as e:
-    print('Recheck', e)
+  except:
+    print('Recheck or No value')
     pass
   return sl_percent
 
