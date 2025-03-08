@@ -1,24 +1,25 @@
-### Import package
 import streamlit as st
 import numpy as np
 import pandas as pd
 
 ### Functions
-def position_sizing(risk_per_trade, stop_loss_percent):
-  """Position size % = (Risk per trade %) / (stop loss %) * 100 """
-  position_size_percent = (risk_per_trade/slp) * 100
-  position_size_capital = capital/position_size_percent
-  position_size_quantity = position_size_capital/entry_price
-  return position_size_percent, position_size_capital, position_size_quantity
+def position_sizing(risk_per_trade, stop_loss_percent, capital, entry_price):
+    """Position size % = (Risk per trade %) / (stop loss %) * 100 """
+    if stop_loss_percent == 0:
+        return 0, 0, 0  # Handle division by zero
+    position_size_percent = (risk_per_trade / stop_loss_percent) * 100
+    position_size_capital = (capital * risk_per_trade / 100) / (stop_loss_percent / 100) if stop_loss_percent != 0 else 0
+    position_size_quantity = position_size_capital / entry_price if entry_price != 0 else 0
+    return position_size_percent, position_size_capital, position_size_quantity
 
-def Stop_loss_percent(entry, sl):
-  try:
-    sl_percent = ((entry-sl)/entry) * 100
-  except:
-    print('Recheck or No value')
-    pass
-  return sl_percent
-
+def stop_loss_percent(entry, sl):
+    try:
+        if entry == 0:
+            return 0  # Handle division by zero
+        sl_percent = ((entry - sl) / entry) * 100
+        return sl_percent
+    except:
+        return None  # Return None in case of errors
 
 ### MAIN
 def main():
@@ -29,35 +30,37 @@ def main():
     st.title("PT - RM_sys")
 
     # Input section (using columns for better layout)
-
-    capital = st.number_input('Capital in INR')
-    col1, col2, col3, col4 = st.columns(4)
+    capital = st.number_input('Capital in INR', min_value=0.0, value=10000.0)
+    col1, col2, col3 = st.columns(3)
 
     with col1:
-      entry_price = st.number_input("Entry Price")
-      
+        entry_price = st.number_input("Entry Price", min_value=0.0, value=100.0)
+
     with col2:
-      sl_price = st.number_input("Stop Loss Price") 
+        sl_price = st.number_input("Stop Loss Price", min_value=0.0, value=95.0)
 
     with col3:
-      rpt = st.number_input("Risk per Trade (%)")
-
-    with col4:
-      quantity = st.number_input("Quantity")
+        rpt = st.number_input("Risk per Trade (%)", min_value=0.0, value=1.0)
 
     # calculation:
-    slp = Stop_loss_percent(entry_price, sl_price)
-    psp,psc,psq = position_sizing(rpt, slp)
-    
-    # Placeholder for analysis results (to be implemented later)
-    st.subheader("Analysis Results")
-    col1,col2 = st.columns(2)
+    slp = stop_loss_percent(entry_price, sl_price)
 
-    with col1:
-      st.write("Stop loss in Percent", slp)
+    if slp is not None: # only calculate position size if stop loss percent is a valid number.
+        psp, psc, psq = position_sizing(rpt, slp, capital, entry_price)
 
-    with col2:
-      st.write(f"Position Size in Percent: {psp}\nPostion size in Capital: {psc}\nPosition size in Quantity: {psq}")
+        # Placeholder for analysis results (to be implemented later)
+        st.subheader("Analysis Results")
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.write(f"Stop loss in Percent: {slp:.2f}%")
+
+        with col2:
+            st.write(f"Position Size in Percent: {psp:.2f}%")
+            st.write(f"Position Size in Capital: {psc:.2f}")
+            st.write(f"Position Size in Quantity: {psq:.2f}")
+    else:
+        st.write("Please check entry price and stop loss price.")
 
 if __name__ == "__main__":
     main()
