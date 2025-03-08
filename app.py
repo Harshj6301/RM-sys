@@ -4,8 +4,14 @@ import numpy as np
 import pandas as pd
 
 ### Functions
-def position_sizing():
+def position_sizing(risk_per_trade, stop_loss_percent):
+  """Position size % = (Risk per trade %) / (stop loss %) * 100 """
   pass
+
+def Stop_loss_percent(entry, sl):
+  sl_percent = ((entry-sl)/entry) * 100
+  return sl_percent
+
 
 ### MAIN
 def main():
@@ -31,8 +37,8 @@ def main():
         quantity = st.number_input("Quantity")
 
     # Placeholder for analysis results (to be implemented later)
-  #  st.subheader("Analysis Results")
-  #  st.write("Calculations and visualizations will be displayed here.")
+     st.subheader("Analysis Results")
+     st.write("Stop loss in percent", Stop_loss_percent(entry,sl))
 
 if __name__ == "__main__":
     main()
