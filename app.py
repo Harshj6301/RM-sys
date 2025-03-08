@@ -37,8 +37,8 @@ def main():
         quantity = st.number_input("Quantity")
 
     # Placeholder for analysis results (to be implemented later)
-     st.subheader("Analysis Results")
-     st.write("Stop loss in percent", Stop_loss_percent(entry,sl))
+    st.subheader("Analysis Results")
+    st.write("Stop loss in percent", Stop_loss_percent(entry,sl))
 
 if __name__ == "__main__":
     main()
