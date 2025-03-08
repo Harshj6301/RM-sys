@@ -27,17 +27,17 @@ def main():
 
     st.set_page_config(layout="wide")  # Set wide layout as default
 
-    st.title("PT - RM_sys")
+    st.title("PT - RM_sys - CC")
 
     # Input section (using columns for better layout)
     capital = st.number_input('Capital in INR', min_value=0.0, value=10000.0)
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        entry_price = st.number_input("Entry Price", min_value=0.0, value=100.0)
+        entry_price = st.number_input("Entry Price", min_value=0.0, value=100.0, step=0.05)
 
     with col2:
-        sl_price = st.number_input("Stop Loss Price", min_value=0.0, value=95.0)
+        sl_price = st.number_input("Stop Loss Price", min_value=0.0, value=95.0, step=0.05)
 
     with col3:
         rpt = st.number_input("Risk per Trade (%)", min_value=0.0, value=1.0)
@@ -50,15 +50,12 @@ def main():
 
         # Placeholder for analysis results (to be implemented later)
         st.subheader("Analysis Results")
-        col1, col2 = st.columns(2)
-
-        with col1:
-            st.write(f"Stop loss in Percent: {slp:.2f}%")
-
-        with col2:
-            st.write(f"Position Size in Percent: {psp:.2f}%")
-            st.write(f"Position Size in Capital: {psc:.2f}")
-            st.write(f"Position Size in Quantity: {psq:.2f}")
+        st.divider()
+        st.write(f"Stop loss in Percent: {slp:.2f}%")
+        st.write(f"Position Size in Percent: {psp:.2f}%")
+        st.write(f"Position Size in Capital: {psc:.2f}")
+        st.write(f"Position Size in Quantity: {psq:.2f}")
+        st.divider()
     else:
         st.write("Please check entry price and stop loss price.")
 
