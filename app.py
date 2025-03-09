@@ -49,8 +49,8 @@ def main():
         psp, psc, psq = position_sizing(rpt, slp, capital, entry_price)
 
         # Placeholder for analysis results (to be implemented later)
-        st.subheader("Analysis Results")
-        st.divider()
+        st.subheader("Optimal Position Sizing")
+        st.write('---')
         st.write(f"Stop loss in Percent: {slp:.2f}%")
         st.write(f"Position Size in Percent: {psp:.2f}%")
         st.write(f"Position Size in Capital: {psc:.2f}")
