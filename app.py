@@ -30,11 +30,11 @@ def main():
     st.title("PT - RM_sys - CC")
 
     # Input section (using columns for better layout)
-    capital = st.number_input('Capital in INR', min_value=0.0, value=10000.0)
+    capital = st.slider('Capital in INR', min_value=0.0, value=10000.0)
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        entry_price = st.slider(st.number_input("Entry Price", min_value=0.0, value=100.0, step=0.05))
+        entry_price = st.number_input("Entry Price", min_value=0.0, value=100.0, step=0.05)
 
     with col2:
         sl_price = st.number_input("Stop Loss Price", min_value=0.0, value=95.0, step=0.05)
