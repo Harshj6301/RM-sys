@@ -40,7 +40,7 @@ def main():
         sl_price = st.number_input("Stop Loss Price", min_value=0.0, value=95.0, step=0.05)
 
     with col3:
-        rpt = st.number_input("Risk per Trade (%)", min_value=0.0, value=1.0)
+        rpt = st.number_input("Risk per Trade (%)", min_value=0.0, value=1.0, step=0.05)
 
     # calculation:
     slp = stop_loss_percent(entry_price, sl_price)
