@@ -30,7 +30,7 @@ def main():
     st.title("PT - RM_sys - CC")
 
     # Input section (using columns for better layout)
-    capital = st.slider('Capital in INR', min_value=0.0, value=10000.0)
+    capital = st.slider('Capital in INR', min_value=0.0)
     col1, col2, col3 = st.columns(3)
 
     with col1:
