@@ -49,13 +49,21 @@ def main():
         psp, psc, psq = position_sizing(rpt, slp, capital, entry_price)
 
         # Placeholder for analysis results (to be implemented later)
-        st.subheader("Optimal Position Sizing")
-        st.write('---')
-        st.write(f"Stop loss in Percent: {slp:.2f}%")
-        st.write(f"Position Size in Percent: {psp:.2f}%")
-        st.write(f"Position Size in Capital: {psc:.2f}")
-        st.write(f"Position Size in Quantity: {psq:.2f}")
-        st.divider()
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.subheader("Optimal Position Sizing", divider='red')
+            st.write(f"Stop loss in Percent: {slp:.2f}%")
+            st.write(f"Position Size in Percent: {psp:.2f}%")
+            st.write(f"Position Size in Capital: {psc:.2f}")
+            st.write(f"Position Size in Quantity: {psq:.2f}")
+
+        with col2:
+            st.subheader("Per trade analysis", divider='red')
+            lot_size = st.number_input("Lot Size in Quantity", min_value=0, value=75, step=5)
+            no_of_lots = st.number_input("Number of Lots", min_value=1, value=1, step=1)
+            total_size = st.write(f"Total Quantity: {lot_size * no_of_lots)
+            
     else:
         st.write("Please check entry price and stop loss price.")
 
