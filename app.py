@@ -62,9 +62,11 @@ def main():
             st.subheader("Per trade analysis", divider='red')
             lot_size = st.number_input("Lot Size in Quantity", min_value=0, value=75, step=5)
             no_of_lots = st.number_input("Number of Lots", min_value=1, value=1, step=1)
-            total_size = st.write(f"Total Quantity: {lot_size * no_of_lots}")
-            buy_size = st.write(f"Total buy size: {total_size * entry_price}")
-            st.write(f"Total SL: {(buy_size)-(total_size * sl_price)}")
+            total_size = lot_size * no_of_lots 
+            st.write(f"Total Quantity: {total_size}")
+            buy_size = total_size * entry_price 
+            st.write(f"Total buy size: {buy_size}")
+            st.write(f"Total SL: {buy_size - (total_size * sl_price)}")
             
     else:
         st.write("Please check entry price and stop loss price.")
