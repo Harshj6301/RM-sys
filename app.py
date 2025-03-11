@@ -21,6 +21,20 @@ def stop_loss_percent(entry, sl):
     except:
         return None  # Return None in case of errors
 
+def calculate_rr_ratio(entry_price, stop_loss_price, target_price):
+    """Calculates the Risk:Reward (R:R) ratio."""
+    if entry_price is None or stop_loss_price is None or target_price is None:
+        return None  # Return None if any input is missing
+
+    risk = abs(entry_price - stop_loss_price)
+    reward = abs(target_price - entry_price)
+
+    if risk == 0:
+        return float('inf') if reward > 0 else 0 # handle risk = 0
+
+    rr_ratio = reward / risk
+    return rr_ratio
+
 ### MAIN
 def main():
     """Main function to run the Streamlit app."""
@@ -40,7 +54,8 @@ def main():
         sl_price = st.number_input("Stop Loss Price", min_value=0.0, value=95.0, step=0.05)
 
     with col3:
-        rpt = st.slider("Risk per Trade (%)", min_value=0.0, max_value=30.0, value=1.0, step=0.05)
+        tgt_est = st.number_input("Estimated target", min_value=0.0, value=None, step=0.5)
+    rpt = st.slider("Risk per Trade (%)", min_value=0.0, max_value=30.0, value=1.0, step=0.05)
 
     # calculation:
     slp = stop_loss_percent(entry_price, sl_price)
@@ -67,6 +82,8 @@ def main():
             buy_size = total_size * entry_price 
             st.write(f"Total buy size: {buy_size}")
             st.write(f"Total SL: {buy_size - (total_size * sl_price)}")
+            st.write(f"Profit range: {(tgt_est * total_size) - (buy_size)}")
+            st.write(f"R:R ratio: {calculate_rr_ratio(entry_price, sl_price, tgt_est))
             
     else:
         st.write("Please check entry price and stop loss price.")
