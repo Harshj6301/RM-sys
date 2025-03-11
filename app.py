@@ -83,7 +83,7 @@ def main():
             st.write(f"Total buy size: {buy_size}")
             st.write(f"Total SL: {buy_size - (total_size * sl_price)}")
             st.write(f"Profit range: {(tgt_est * total_size) - (buy_size)}")
-            st.write(f"R:R ratio: {calculate_rr_ratio(entry_price, sl_price, tgt_est))
+            st.write(f"R:R ratio: {calculate_rr_ratio(entry_price, sl_price, tgt_est)}")
             
     else:
         st.write("Please check entry price and stop loss price.")
