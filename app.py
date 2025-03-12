@@ -106,7 +106,7 @@ def main():
                 }
             df = pd.DataFrame(data)
             st.subheader('Graphs', divider='red') 
-            st.bar_chart(df[['R:R Ratio']], horizontal=True, stack=False)
+            st.bar_chart(np.linspace(0,100,1), df[['R:R Ratio']], horizontal=True, stack=False)
             col1, col2 = st.columns(2)
             with col1:
                 st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], x_label='Total amount', stack=False)
