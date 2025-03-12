@@ -64,7 +64,7 @@ def main():
     if slp is not None: # only calculate position size if stop loss percent is a valid number.
         try:
             psp, psc, psq = position_sizing(rpt, slp, capital, entry_price)
-    
+            rr_ratio = calculate_rr_ratio(entry_price, sl_price, tgt_est)
             # Placeholder for analysis results (to be implemented later)
             col1, col2 = st.columns(2)
     
@@ -85,7 +85,7 @@ def main():
                 st.write(f"Total buy size: {buy_size}")
                 st.write(f"Total SL: {buy_size - (total_size * sl_price)}")
                 st.write(f"Profit range: {(tgt_est * total_size) - (buy_size)}")
-                st.write(f"R:R ratio: {calculate_rr_ratio(entry_price, sl_price, tgt_est)}")
+                st.write(f"R:R ratio: {rr_ratio:.2f}")
         except:
             pass
     else:
