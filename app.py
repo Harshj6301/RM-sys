@@ -75,21 +75,24 @@ def main():
     
             with col1:
                 st.subheader("Optimal Position Sizing", divider='red')
-                st.write(f"Stop loss in Percent: {slp:.2f}%")
-                st.write(f"Position Size in Percent: {psp:.2f}%")
-                st.write(f"Position Size in Capital: {psc:.2f}")
-                st.write(f"Position Size in Quantity: {psq:.2f}")
+                st.markdown(f"Stop loss in Percent: :red[**{slp:.2f}%**]")
+                st.markdown(f"Position Size in Percent: :orange[**{psp:.2f}%**]")
+                st.markdown(f"Position Size in Capital: :green[**{psc:.2f}**]")
+                st.markdown(f"Position Size in Quantity: :orange[**{psq:.2f}**]")
     
             with col2:
                 st.subheader("Per trade analysis", divider='red')
                 scol1, scol2 = st.columns(2)
                 with scol1:
-                    st.write(f"Total Quantity: {total_size}")
-                    st.write(f"Total buy size: {buy_size}")
-                    st.write(f"Total SL: {buy_size - (total_size * sl_price)}")
+                    st.markdown(f"Total Quantity: :orange[**{total_size}**]")
+                    st.markdown(f"Total buy size: :green[**{buy_size}**]")
+                    st.markdown(f"Total SL: :red[**{buy_size - (total_size * sl_price)}**]")
                 with scol2:
                     st.markdown(f"Profit range: :green[**{(tgt_est * total_size) - (buy_size)}**]")
-                    st.markdown(f"R:R ratio: :green[**{rr_ratio:.2f}**]")
+                    if rr_ratio <= 3.00:
+                        st.markdown(f"R:R ratio: :red[**{rr_ratio:.2f}**]")
+                    else:
+                        st.markdown(f"R:R ratio: :green[**{rr_ratio:.2f}**]")
             
             # Create DataFrame
             data = {
