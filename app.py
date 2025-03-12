@@ -75,7 +75,12 @@ def main():
     
             with col1:
                 st.subheader("Optimal Position Sizing", divider='red')
-                st.markdown(f"Stop loss in Percent: :red[**{slp:.2f}%**]")
+                if slp >= 5.0:
+                    st.markdown(f"Stop loss in Percent: :red[**{slp:.2f}%**]")
+                elif slp >= 3.0:
+                    st.markdown(f"Stop loss in Percent: :orange[**{slp:.2f}%**]")
+                else:
+                    st.markdown(f"Stop loss in Percent: :green[**{slp:.2f}%**]")
                 st.markdown(f"Position Size in Percent: :orange[**{psp:.2f}%**]")
                 st.markdown(f"Position Size in Capital: :green[**{psc:.2f}**]")
                 st.markdown(f"Position Size in Quantity: :orange[**{psq:.2f}**]")
