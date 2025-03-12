@@ -65,6 +65,11 @@ def main():
         try:
             psp, psc, psq = position_sizing(rpt, slp, capital, entry_price)
             rr_ratio = calculate_rr_ratio(entry_price, sl_price, tgt_est)
+            lot_size = st.number_input("Lot Size in Quantity", min_value=0, value=75, step=5)
+            no_of_lots = st.number_input("Number of Lots", min_value=1, value=1, step=1)
+            total_size = lot_size * no_of_lots 
+            buy_size = total_size * entry_price 
+            
             # Placeholder for analysis results (to be implemented later)
             col1, col2 = st.columns(2)
     
@@ -77,15 +82,29 @@ def main():
     
             with col2:
                 st.subheader("Per trade analysis", divider='red')
-                lot_size = st.number_input("Lot Size in Quantity", min_value=0, value=75, step=5)
-                no_of_lots = st.number_input("Number of Lots", min_value=1, value=1, step=1)
-                total_size = lot_size * no_of_lots 
-                st.write(f"Total Quantity: {total_size}")
-                buy_size = total_size * entry_price 
-                st.write(f"Total buy size: {buy_size}")
-                st.write(f"Total SL: {buy_size - (total_size * sl_price)}")
-                st.write(f"Profit range: {(tgt_est * total_size) - (buy_size)}")
-                st.write(f"R:R ratio: {rr_ratio:.2f}")
+                scol1, scol2 = st.columns(2)
+                with scol1:
+                    st.write(f"Total Quantity: {total_size}")
+                    st.write(f"Total buy size: {buy_size}")
+                    st.write(f"Total SL: {buy_size - (total_size * sl_price)}")
+                with scol2:
+                    st.write(f"Profit range: {(tgt_est * total_size) - (buy_size)}")
+                    st.write(f"R:R ratio: {rr_ratio:.2f}")
+            
+            # Create DataFrame
+            data = {
+                "Entry Price": [entry_price],
+                "Stop Loss Price": [sl_price],
+                "Target Price": [tgt_est],
+                "Lot Size": [lot_size],,
+                "Total Size": [total_size],
+                "Buy Size": [buy_size],
+                "Stop Loss Amount": [buy_size - (total_size * sl_price)],
+                "Profit Range": [(tgt_est * total_size) - (buy_size)],
+                "R:R Ratio": [rr_ratio]
+                }
+            df = pd.DataFrame(data)
+            st.bar_chart(df, horizontal=True)
         except:
             pass
     else:
