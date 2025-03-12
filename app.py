@@ -35,6 +35,22 @@ def calculate_rr_ratio(entry_price, stop_loss_price, target_price):
     rr_ratio = reward / risk
     return rr_ratio
 
+def calculate_roi(initial_investment, final_value):
+    """
+    Calculates the Return on Investment (ROI).
+
+    Args:
+        initial_investment: The initial amount of money invested.
+        final_value: The final value of the investment.
+
+    Returns:
+        The ROI as a percentage. Returns None if initial_investment is 0.
+    """
+    if initial_investment == 0:
+        return None  # Avoid division by zero
+    roi = ((final_value - initial_investment) / initial_investment) * 100
+    return roi
+    
 ### MAIN
 def main():
     """Main function to run the Streamlit app."""
@@ -68,8 +84,9 @@ def main():
             lot_size = st.number_input("Lot Size in Quantity", min_value=0, value=75, step=5)
             no_of_lots = st.number_input("Number of Lots", min_value=1, value=1, step=1)
             total_size = lot_size * no_of_lots 
-            buy_size = total_size * entry_price 
-            
+            buy_size = total_size * entry_price
+            total_sl = (buy_size - (total_size * sl_price))
+            profit_range = ((tgt_est * total_size) - (buy_size))
             # Placeholder for analysis results (to be implemented later)
             col1, col2 = st.columns(2)
     
@@ -91,13 +108,14 @@ def main():
                 with scol1:
                     st.markdown(f"Total Quantity: :orange[**{total_size}**]")
                     st.markdown(f"Total buy size: :green[**{buy_size}**]")
-                    st.markdown(f"Total SL: :red[**{(buy_size - (total_size * sl_price)):.2f}**]")
+                    st.markdown(f"Total SL: :red[**{total_sl:.2f}**]")
                 with scol2:
-                    st.markdown(f"Profit range: :green[**{(tgt_est * total_size) - (buy_size)}**]")
+                    st.markdown(f"Profit range: :green[**{profit_range}**]")
                     if rr_ratio <= 3.00:
                         st.markdown(f"R:R ratio: :red[**{rr_ratio:.2f}**]")
                     else:
                         st.markdown(f"R:R ratio: :green[**{rr_ratio:.2f}**]")
+                    st.markdown(f"ROI: {calculate_roi(buy_size, profit_range):.2f}")
             
             # Create DataFrame
             data = {
