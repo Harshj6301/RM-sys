@@ -105,8 +105,10 @@ def main():
                 "R:R Ratio": [rr_ratio]
                 }
             df = pd.DataFrame(data)
-            st.subheader('Graphs', divider='red')
-            st.bar_chart(df[['R:R Ratio']], horizontal=True)
+            st.subheader('Graphs', divider='red') 
+            plt.figure(figsize=(4, 2))
+            plt.bar(["R:R Ratio"], [rr_ratio])
+            st.pyplot(plt)
             col1, col2 = st.columns(2)
             with col1:
                 st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], color=['#09FF88', '#E01A28', '#93FF6E'], x_label='Total amount', stack=False)
