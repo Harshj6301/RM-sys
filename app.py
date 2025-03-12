@@ -104,7 +104,7 @@ def main():
                 "R:R Ratio": [rr_ratio]
                 }
             df = pd.DataFrame(data)
-            st.bar_chart(df, x=['Buy Size', 'Profit Range', 'R:R Ratio'], stack=False, horizontal=True)
+            st.bar_chart(df, stack=False, horizontal=True)
         except:
             pass
     else:
