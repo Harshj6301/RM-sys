@@ -48,7 +48,7 @@ def main():
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        entry_price = st.number_input("Entry Price", min_value=0.0, value=100.0, step=0.05)
+        entry_price = st.number_input("**Entry Price**", min_value=0.0, value=100.0, step=0.05)
 
     with col2:
         sl_price = st.number_input("Stop Loss Price", min_value=0.0, value=95.0, step=0.05)
@@ -114,7 +114,7 @@ def main():
             with col1:
                 st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], x_label='Total amount', stack=False, horizontal=True)
             with col2:
-                st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True)
+                st.line_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True)
         except:
             pass
     else:
