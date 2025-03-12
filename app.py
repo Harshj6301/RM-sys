@@ -107,9 +107,9 @@ def main():
             df = pd.DataFrame(data)
             col1, col2 = st.columns(2)
             with col1:
-                st.bar_chart(df, x=[['Buy Size', 'Stop Loss Amount', 'Profit Range']], stack=False)
+                st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], stack=False)
             with col2:
-                st.bar_chart(df, x=[['R:R Ratio']], stack=False)
+                st.bar_chart(df[['R:R Ratio','Target Price', 'Entry Price', 'Stop Loss Price']], stack=False)
         except:
             pass
     else:
