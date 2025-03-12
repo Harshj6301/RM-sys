@@ -97,6 +97,7 @@ def main():
                 "Stop Loss Price": [sl_price],
                 "Target Price": [tgt_est],
                 "Lot Size": [lot_size],
+                "Number of Lots": [no_of_lots],
                 "Total Size": [total_size],
                 "Buy Size": [buy_size],
                 "Stop Loss Amount": [buy_size - (total_size * sl_price)],
@@ -104,7 +105,8 @@ def main():
                 "R:R Ratio": [rr_ratio]
                 }
             df = pd.DataFrame(data)
-            st.bar_chart(df, stack=False, horizontal=True)
+            st.bar_chart(df, x=[['Buy Size', 'Stop Loss Amount', 'Profit Range']], stack=False)
+            st.bar_chart(df, x=[['R:R Ratio']], stack=False)
         except:
             pass
     else:
