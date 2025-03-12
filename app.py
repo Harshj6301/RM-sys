@@ -88,8 +88,8 @@ def main():
                     st.write(f"Total buy size: {buy_size}")
                     st.write(f"Total SL: {buy_size - (total_size * sl_price)}")
                 with scol2:
-                    st.markdown(f"Profit range: {(tgt_est * total_size) - (buy_size)}")
-                    st.markdown(f"R:R ratio: :red[{rr_ratio:.2f}]")
+                    st.markdown(f"Profit range: :green[**{(tgt_est * total_size) - (buy_size)}**]")
+                    st.markdown(f"R:R ratio: :green[**{rr_ratio:.2f}**]")
             
             # Create DataFrame
             data = {
