@@ -96,7 +96,7 @@ def main():
                 "Entry Price": [entry_price],
                 "Stop Loss Price": [sl_price],
                 "Target Price": [tgt_est],
-                "Lot Size": [lot_size],,
+                "Lot Size": [lot_size],
                 "Total Size": [total_size],
                 "Buy Size": [buy_size],
                 "Stop Loss Amount": [buy_size - (total_size * sl_price)],
