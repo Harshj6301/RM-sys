@@ -114,7 +114,7 @@ def main():
             with col1:
                 st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], x_label='Total amount', stack=False, horizontal=True)
             with col2:
-                st.area_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels')
+                st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True)
         except:
             pass
     else:
