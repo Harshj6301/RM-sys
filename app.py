@@ -48,10 +48,10 @@ def main():
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        entry_price = st.number_input("**Entry Price**", min_value=0.0, value=100.0, step=0.05)
+        entry_price = st.number_input("**Entry Price**", min_value=0.0, value=100.0, step=0.5)
 
     with col2:
-        sl_price = st.number_input("**Stop Loss Price**", min_value=0.0, value=95.0, step=0.05)
+        sl_price = st.number_input("**Stop Loss Price**", min_value=0.0, value=95.0, step=0.5)
 
     with col3:
         tgt_est = st.number_input("**Estimated target**", min_value=0.0, value=200.0, step=0.5)
@@ -86,7 +86,7 @@ def main():
                 with scol1:
                     st.markdown(f"Total Quantity: :orange[**{total_size}**]")
                     st.markdown(f"Total buy size: :green[**{buy_size}**]")
-                    st.markdown(f"Total SL: :red[**{buy_size - (total_size * sl_price)}**]")
+                    st.markdown(f"Total SL: :red[**{(buy_size - (total_size * sl_price)):.2f}**]")
                 with scol2:
                     st.markdown(f"Profit range: :green[**{(tgt_est * total_size) - (buy_size)}**]")
                     if rr_ratio <= 3.00:
