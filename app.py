@@ -115,7 +115,7 @@ def main():
                         st.markdown(f"R:R ratio: :red[**{rr_ratio:.2f}**]")
                     else:
                         st.markdown(f"R:R ratio: :green[**{rr_ratio:.2f}**]")
-                    st.markdown(f"ROI: {calculate_roi(buy_size, (tgt_est * total_size)):.2f}")
+                    st.markdown(f"ROI: :green[**{calculate_roi(buy_size, (tgt_est * total_size)):.2f}**]")
             
             # Create DataFrame
             data = {
