@@ -88,8 +88,8 @@ def main():
                     st.write(f"Total buy size: {buy_size}")
                     st.write(f"Total SL: {buy_size - (total_size * sl_price)}")
                 with scol2:
-                    st.write(f"Profit range: {(tgt_est * total_size) - (buy_size)}")
-                    st.write(f"R:R ratio: {rr_ratio:.2f}")
+                    st.markdown(f"Profit range: {(tgt_est * total_size) - (buy_size)}")
+                    st.markdown(f"R:R ratio: :red[{rr_ratio:.2f}]")
             
             # Create DataFrame
             data = {
@@ -111,7 +111,7 @@ def main():
             with col1:
                 st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], x_label='Total amount', stack=False, horizontal=True)
             with col2:
-                st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price', 'R:R Ratio']], x_label='Trade levels', stack=False, horizontal=True)
+                st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True)
         except:
             pass
     else:
