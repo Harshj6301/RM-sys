@@ -44,19 +44,19 @@ def main():
     st.title("PT - RM_sys - CC")
 
     # Input section (using columns for better layout)
-    capital = st.number_input('Capital in INR', min_value=0.0, value=10000.0, step=100.00)
+    capital = st.number_input('**Capital in INR**', min_value=0.0, value=10000.0, step=100.00)
     col1, col2, col3 = st.columns(3)
 
     with col1:
         entry_price = st.number_input("**Entry Price**", min_value=0.0, value=100.0, step=0.05)
 
     with col2:
-        sl_price = st.number_input("Stop Loss Price", min_value=0.0, value=95.0, step=0.05)
+        sl_price = st.number_input("**Stop Loss Price**", min_value=0.0, value=95.0, step=0.05)
 
     with col3:
-        tgt_est = st.number_input("Estimated target", min_value=0.0, value=200.0, step=0.5)
+        tgt_est = st.number_input("**Estimated target**", min_value=0.0, value=200.0, step=0.5)
         
-    rpt = st.slider("Risk per Trade (%)", min_value=0.0, max_value=30.0, value=1.0, step=0.05)
+    rpt = st.slider("**Risk per Trade (%)**", min_value=0.0, max_value=30.0, value=1.0, step=0.05)
 
     # calculation:
     slp = stop_loss_percent(entry_price, sl_price)
@@ -114,7 +114,7 @@ def main():
             with col1:
                 st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], x_label='Total amount', stack=False, horizontal=True)
             with col2:
-                st.line_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True)
+                st.line_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels')
         except:
             pass
     else:
