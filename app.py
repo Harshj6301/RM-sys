@@ -54,7 +54,7 @@ def main():
         sl_price = st.number_input("Stop Loss Price", min_value=0.0, value=95.0, step=0.05)
 
     with col3:
-        tgt_est = st.number_input("Estimated target", min_value=0.0, value=200, step=0.5)
+        tgt_est = st.number_input("Estimated target", min_value=0.0, value=200.0, step=0.5)
         
     rpt = st.slider("Risk per Trade (%)", min_value=0.0, max_value=30.0, value=1.0, step=0.05)
 
