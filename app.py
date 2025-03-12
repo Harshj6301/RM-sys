@@ -106,18 +106,12 @@ def main():
                 }
             df = pd.DataFrame(data)
             st.subheader('Graphs', divider='red')
-            ratios = np.linspace(0,100,1)
-            data1 = {
-                "ratios":[ratios],
-                "R:R Ratio":[rr_ratio]
-                    }
-            df1 = pd.DataFrame(data1)
-            st.bar_chart(df1)
+            
             col1, col2 = st.columns(2)
             with col1:
-                st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], x_label='Total amount', stack=False)
+                st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], x_label='Total amount', stack=False, horizontal=True)
             with col2:
-                st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False)
+                st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price', 'R:R Ratio']], x_label='Trade levels', stack=False, horizontal=True)
         except:
             pass
     else:
