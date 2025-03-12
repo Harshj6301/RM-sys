@@ -105,11 +105,13 @@ def main():
                 "R:R Ratio": [rr_ratio]
                 }
             df = pd.DataFrame(data)
+            st.subheader('Graphs', divider='red')
+            st.bar_chart(df['R:R Ratio'], horizontal=True)
             col1, col2 = st.columns(2)
             with col1:
-                st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], stack=False)
+                st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], color=['#09FF88', '#E01A28', '#93FF6E'], x_label='Total amount', stack=False)
             with col2:
-                st.bar_chart(df[['R:R Ratio','Target Price', 'Entry Price', 'Stop Loss Price']], stack=False)
+                st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], color=['#09FF88', '#E01A28', '#93FF6E'], x_label='Trade levels', stack=False)
         except:
             pass
     else:
