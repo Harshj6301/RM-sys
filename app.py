@@ -106,8 +106,9 @@ def main():
                 }
             df = pd.DataFrame(data)
             st.subheader('Graphs', divider='red')
+            ratios = np.linspace(0,100,1)
             data1 = {
-                "ratios":[np.linspace(0,100,1)],
+                "ratios":[ratios],
                 "R:R Ratio":[rr_ratio]
                     }
             df1 = pd.DataFrame(data1)
