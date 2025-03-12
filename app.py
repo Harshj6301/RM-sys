@@ -92,7 +92,7 @@ def main():
     
             with col1:
                 st.subheader("Optimal Position Sizing", divider='red')
-                if slp >= 5.0:
+                if slp >= 7.0:
                     st.markdown(f"Stop loss in Percent: :red[**{slp:.2f}%**]")
                 elif slp >= 3.0:
                     st.markdown(f"Stop loss in Percent: :orange[**{slp:.2f}%**]")
