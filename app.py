@@ -143,7 +143,7 @@ def main():
                 st.plotly_chart(fig_pie, theme="streamlit", use_container_width=True)
             with col2:
                # st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True)
-                fig_bar = px.bar(df, x=tgt_est+100.0, y=['Entry Price', 'Stop Loss Price', 'Target Price'], title='Trade Levels', color_discrete_sequence=px.colors.sequential.Oranges, orientation='h')
+                fig_bar = px.bar(df, x=tgt_est, y=['Entry Price', 'Stop Loss Price', 'Target Price'], title='Trade Levels', color_discrete_sequence=px.colors.sequential.Oranges, orientation='h')
                 st.plotly_chart(fig_bar, theme='streamlit', use_container_width=True)
 
         
