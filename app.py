@@ -144,7 +144,7 @@ def main():
             with col2:
                # st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True)
                 fig_bar = px.bar(df, x=['Entry Price', 'Stop Loss Price', 'Target Price'], title='Trade Levels', template='plotly_dark')
-                st.plotly_chart(fig_bar, theme=None, use_container_width=True)
+                st.plotly_chart(fig_bar, theme='streamlit', use_container_width=True)
 
         
         except:
