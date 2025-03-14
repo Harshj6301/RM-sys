@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
+import plotly.express as px
 
 ### Functions
 def position_sizing(risk_per_trade, stop_loss_percent, capital, entry_price):
@@ -126,8 +127,8 @@ def main():
                 "Number of Lots": [no_of_lots],
                 "Total Size": [total_size],
                 "Buy Size": [buy_size],
-                "Stop Loss Amount": [buy_size - (total_size * sl_price)],
-                "Profit Range": [(tgt_est * total_size) - (buy_size)],
+                "Stop Loss Amount": [total_sl],
+                "Profit Range": [profit_range],
                 "R:R Ratio": [rr_ratio]
                 }
             df = pd.DataFrame(data)
@@ -138,6 +139,13 @@ def main():
                 st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], x_label='Total amount', stack=False, horizontal=True)
             with col2:
                 st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True)
+
+            labels = ['Buy Size', 'Stop Loss Amount', 'Profit Range']
+            values = [buy_size, total_sl, profit_range]
+
+            fig_pie = px.pie(values=values, names=labels, title='Trade Composition')
+            st.plotly_chart(fig_pie)
+
         except:
             pass
     else:
