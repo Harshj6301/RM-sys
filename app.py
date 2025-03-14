@@ -139,11 +139,11 @@ def main():
                 labels = ['Buy Size', 'Stop Loss Amount', 'Profit Range']
                 values = [buy_size, total_sl, profit_range]
 
-                fig_pie = px.pie(values=values, names=labels, title='Trade Composition')
+                fig_pie = px.pie(values=values, names=labels, title='Trade Composition',color_discrete_sequence=['darkorange','orange', 'yellow'])
                 st.plotly_chart(fig_pie, theme="streamlit", use_container_width=True)
             with col2:
                # st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True)
-                fig_bar = px.bar(df, x=df['Target Price'], y=df[['Entry Price', 'Stop Loss Price', 'Target Price']], title='Trade Levels', color_discrete_sequence=['darkorange'], orientation='h')
+                fig_bar = px.bar(df, x='Target Price', y=['Entry Price', 'Stop Loss Price', 'Target Price'], title='Trade Levels', color_discrete_sequence=['darkorange'], orientation='h')
                 st.plotly_chart(fig_bar, theme='streamlit', use_container_width=True)
 
         
