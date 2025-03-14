@@ -92,7 +92,7 @@ def main():
             col1, col2 = st.columns(2)
     
             with col1:
-                st.subheader("Optimal Position Sizing", divider='red')
+                st.subheader("Optimal Position Sizing", divider='yellow')
                 if slp >= 7.0:
                     st.markdown(f"Stop loss in Percent: :red[**{slp:.2f}%**]")
                 elif slp >= 3.0:
@@ -104,7 +104,7 @@ def main():
                 st.markdown(f"Position Size in Quantity: :orange[**{psq:.2f}**]")
     
             with col2:
-                st.subheader("Per trade analysis", divider='red')
+                st.subheader("Per trade analysis", divider='yellow')
                 scol1, scol2 = st.columns(2)
                 with scol1:
                     st.markdown(f"Total Quantity: :orange[**{total_size}**]")
@@ -132,7 +132,7 @@ def main():
                 "R:R Ratio": [rr_ratio]
                 }
             df = pd.DataFrame(data)
-            st.subheader('Graphs', divider='red')
+            st.subheader('Graphs', divider='yellow')
             
             col1, col2 = st.columns(2)
             with col1:
@@ -143,8 +143,8 @@ def main():
                 st.plotly_chart(fig_pie, theme="streamlit", use_container_width=True)
             with col2:
                # st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True)
-                fig_bar = px.bar(df, x=['Entry Price', 'Stop Loss Price', 'Target Price'], title='Trade Levels')
-                st.plotly_chart(fig_bar, theme='streamlit', use_container_width=True)
+                fig_bar = px.bar(df, x=['Entry Price', 'Stop Loss Price', 'Target Price'], title='Trade Levels', template='plotly_dark')
+                st.plotly_chart(fig_bar, theme=None, use_container_width=True)
 
         
         except:
