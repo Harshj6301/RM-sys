@@ -136,16 +136,15 @@ def main():
             
             col1, col2 = st.columns(2)
             with col1:
-                st.bar_chart(df[['Buy Size', 'Stop Loss Amount', 'Profit Range']], x_label='Total amount', stack=False, horizontal=True)
+                labels = ['Buy Size', 'Stop Loss Amount', 'Profit Range']
+                values = [buy_size, total_sl, profit_range]
+
+                fig_pie = px.pie(values=values, names=labels, title='Trade Composition')
+                st.plotly_chart(fig_pie, theme="streamlit", use_container_width=True)
             with col2:
                 st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True)
 
-            labels = ['Buy Size', 'Stop Loss Amount', 'Profit Range']
-            values = [buy_size, total_sl, profit_range]
-
-            fig_pie = px.pie(values=values, names=labels, title='Trade Composition')
-            st.plotly_chart(fig_pie)
-
+        
         except:
             pass
     else:
