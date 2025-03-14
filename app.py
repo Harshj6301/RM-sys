@@ -142,10 +142,8 @@ def main():
                 fig_pie = px.pie(values=values, names=labels, title='Trade Composition',color_discrete_sequence=['darkorange','orange', 'yellow'], hole=0.3)
                 st.plotly_chart(fig_pie, theme="streamlit", use_container_width=True)
             with col2:
-                st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True, color=['FFBF00','FF9300','FFEE00'])
-               
-
-        
+                bar = st.bar_chart(df[['Entry Price', 'Stop Loss Price', 'Target Price']], x_label='Trade levels', stack=False, horizontal=True, color=['FFBF00','FF9300','FFEE00'])
+                st.write(bar)
         except:
             pass
     else:
