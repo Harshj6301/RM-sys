@@ -58,7 +58,7 @@ def main():
 
     st.set_page_config(layout="wide")  # Set wide layout as default
 
-    st.title("PT - RM_sys - CC")
+    st.title("PT - RM_sys - CC -- v1")
 
     # Input section (using columns for better layout)
     capital = st.number_input('**Capital in INR**', min_value=0.0, value=10000.0, step=100.00)
