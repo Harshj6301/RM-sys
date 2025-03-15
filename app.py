@@ -140,11 +140,11 @@ def main():
                 values = [buy_size, total_sl, profit_range]
 
                 fig_pie = px.pie(values=values, names=labels, title='Trade Composition',
-                                 color_discrete_sequence=['darkorange', 'orange', 'yellow'], hole=0.3)
+                                 color_discrete_sequence=['darkorange', 'darkolivegreen', 'olivedrab'], hole=0.3)
                 st.plotly_chart(fig_pie, use_container_width=True)
             with col2:
                 fig_bar = px.bar(df, x=['Entry Price', 'Stop Loss Price', 'Target Price'],
-                                 color_discrete_sequence=['darkgreen', 'green', 'yellowgreen'],
+                                 color_discrete_sequence=['darkgreen', 'green', 'olive'],
                                  title='Trade Levels', barmode='group')
                 st.plotly_chart(fig_bar, use_container_width=True)
 
