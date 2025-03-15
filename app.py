@@ -144,7 +144,7 @@ def main():
                 st.plotly_chart(fig_pie, use_container_width=True)
             with col2:
                 fig_bar = px.bar(df, x=['Entry Price', 'Stop Loss Price', 'Target Price'],
-                                 color_discrete_sequence=['darkgreen', 'green', 'yellowgreen'],
+                                 color_discrete_sequence=['darkgreen', 'crimson', 'yellowgreen'],
                                  title='Trade Levels', barmode='group')
                 st.plotly_chart(fig_bar, use_container_width=True)
 
