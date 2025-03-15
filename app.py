@@ -145,7 +145,7 @@ def main():
             with col2:
                 fig_bar = px.bar(df, x=['Entry Price', 'Stop Loss Price', 'Target Price'],
                                  title='Trade Levels', barmode='group')
-                st.plotly_chart(fig_bar, theme="None", use_container_width=True)
+                st.plotly_chart(fig_bar, use_container_width=True)
 
         except:
             pass
