@@ -108,10 +108,10 @@ def main():
                 scol1, scol2 = st.columns(2)
                 with scol1:
                     st.markdown(f"Total Quantity: :orange[**{total_size}**]")
-                    st.markdown(f"Total buy size: :green[**{buy_size}**]")
+                    st.markdown(f"Total buy size: :green[**{buy_size:.2f}**]")
                     st.markdown(f"Total SL: :red[**{total_sl:.2f}**]")
                 with scol2:
-                    st.markdown(f"Profit range: :green[**{profit_range}**]")
+                    st.markdown(f"Profit range: :green[**{profit_range:.2f}**]")
                     if rr_ratio <= 3.00:
                         st.markdown(f"R:R ratio: :red[**{rr_ratio:.2f}**]")
                     else:
