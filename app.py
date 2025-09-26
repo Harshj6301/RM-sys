@@ -75,10 +75,16 @@ def main():
         
     rpt = st.slider("**Risk per Trade (%)**", min_value=0.0, max_value=30.0, value=1.0, step=0.05)
 
+    # Brokerage & Charges Inputs
+    charges_col1, charges_col2 = st.columns(2)
+    with charges_col1:
+        brokerage_rate = st.number_input("Brokerage rate (%)", min_value=0.0, value=0.05, step=0.01)
+    with charges_col2:
+        flat_charges = st.number_input("Flat charges (INR)", min_value=0.0, value=20.0, step=1.00)
+
     # calculation:
     slp = stop_loss_percent(entry_price, sl_price)
-
-    if slp is not None: # only calculate position size if stop loss percent is a valid number.
+    if slp is not None:
         try:
             psp, psc, psq = position_sizing(rpt, slp, capital, entry_price)
             rr_ratio = calculate_rr_ratio(entry_price, sl_price, tgt_est)
@@ -86,11 +92,17 @@ def main():
             no_of_lots = st.number_input("Number of Lots", min_value=1, value=1, step=1)
             total_size = lot_size * no_of_lots 
             buy_size = total_size * entry_price
+            sell_size = total_size * tgt_est
+            
+            # Brokerage and charges calculation (assume brokerage applies on both buy/sell side)
+            brokerage = ((buy_size + sell_size) * brokerage_rate) / 100
+            total_charges = brokerage + flat_charges
+            
             total_sl = (buy_size - (total_size * sl_price))
-            profit_range = ((tgt_est * total_size) - (buy_size))
-            # Placeholder for analysis results (to be implemented later)
+            profit_range = (sell_size - buy_size) - total_charges  # Deduct charges from gross P/L
+            
             col1, col2 = st.columns(2)
-    
+
             with col1:
                 st.subheader("Optimal Position Sizing", divider='red')
                 if slp >= 7.0:
@@ -102,7 +114,7 @@ def main():
                 st.markdown(f"Position Size in Percent: :orange[**{psp:.2f}%**]")
                 st.markdown(f"Position Size in Capital: :green[**{psc:.2f}**]")
                 st.markdown(f"Position Size in Quantity: :orange[**{psq:.2f}**]")
-    
+
             with col2:
                 st.subheader("Per trade analysis", divider='red')
                 scol1, scol2 = st.columns(2)
@@ -110,14 +122,15 @@ def main():
                     st.markdown(f"Total Quantity: :orange[**{total_size}**]")
                     st.markdown(f"Total buy size: :green[**{buy_size:.2f}**]")
                     st.markdown(f"Total SL: :red[**{total_sl:.2f}**]")
+                    st.markdown(f"Charges: :red[**{total_charges:.2f}**]")  # ***NEW***
                 with scol2:
-                    st.markdown(f"Profit range: :green[**{profit_range:.2f}**]")
+                    st.markdown(f"Profit range (net P/L): :green[**{profit_range:.2f}**]")
                     if rr_ratio <= 3.00:
                         st.markdown(f"R:R ratio: :red[**{rr_ratio:.2f}**]")
                     else:
                         st.markdown(f"R:R ratio: :green[**{rr_ratio:.2f}**]")
-                    st.markdown(f"ROI: :green[**{calculate_roi(buy_size, (tgt_est * total_size)):.2f}%**]")
-            
+                    st.markdown(f"ROI (net): :green[**{calculate_roi(buy_size, sell_size - total_charges):.2f}%**]")  # ***NEW***
+
             # Create DataFrame
             data = {
                 "Entry Price": [entry_price],
@@ -127,20 +140,21 @@ def main():
                 "Number of Lots": [no_of_lots],
                 "Total Size": [total_size],
                 "Buy Size": [buy_size],
+                "Sell Size": [sell_size],
                 "Stop Loss Amount": [total_sl],
-                "Profit Range": [profit_range],
-                "R:R Ratio": [rr_ratio]
+                "Profit Range (Net)": [profit_range],
+                "R:R Ratio": [rr_ratio],
+                "Total Charges": [total_charges]
                 }
             df = pd.DataFrame(data)
             st.subheader('Graphs', divider='red')
             
             col1, col2 = st.columns(2)
             with col1:
-                labels = ['Buy Size', 'Stop Loss Amount', 'Profit Range']
-                values = [buy_size, total_sl, profit_range]
-
+                labels = ['Buy Size', 'Stop Loss Amount', 'Profit Range (Net)', 'Charges']
+                values = [buy_size, total_sl, profit_range, total_charges]
                 fig_pie = px.pie(values=values, names=labels, title='Trade Composition',
-                                 color_discrete_sequence=['yellowgreen', 'darkolivegreen', 'crimson'], hole=0.3)
+                                 color_discrete_sequence=['yellowgreen', 'darkolivegreen', 'crimson', 'gray'], hole=0.3)
                 st.plotly_chart(fig_pie, use_container_width=True)
             with col2:
                 fig_bar = px.bar(df, x=['Entry Price', 'Stop Loss Price', 'Target Price'],
@@ -148,12 +162,10 @@ def main():
                                  title='Trade Levels', barmode='group')
                 st.plotly_chart(fig_bar, use_container_width=True)
 
-        except:
-            pass
+        except Exception as e:
+            st.error(f"Error occurred: {e}")
     else:
         st.write("Please check entry price and stop loss price.")
-
-    
 
 if __name__ == "__main__":
     main()
